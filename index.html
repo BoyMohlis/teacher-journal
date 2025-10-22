@@ -1218,7 +1218,7 @@
         }
 
         // Export ke Word dengan landscape
-        function exportToWord() {
+                function exportToWord() {
             let content = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
@@ -1227,84 +1227,118 @@
                     <style>
                         @page {
                             size: landscape;
-                            margin: 1cm;
+                            margin: 0.5cm;
                         }
                         body { 
                             font-family: Arial, sans-serif; 
-                            margin: 20px;
+                            margin: 15px;
                         }
-                        h1 { text-align: center; color: #2c3e50; }
-                        h2, h3 { text-align: center; }
+                        h1 { 
+                            text-align: center; 
+                            color: #2c3e50; 
+                            font-size: 18px;
+                            margin-bottom: 5px;
+                        }
+                        h2, h3 { 
+                            text-align: center; 
+                            margin: 3px 0;
+                        }
+                        h2 { font-size: 14px; }
+                        h3 { font-size: 12px; }
+                        .info-header {
+                            text-align: center;
+                            margin-bottom: 10px;
+                        }
                         table { 
                             width: 100%; 
                             border-collapse: collapse; 
-                            margin-top: 20px; 
-                            margin-bottom: 30px;
-                            font-size: 11px;
+                            margin-top: 15px; 
+                            margin-bottom: 20px;
+                            font-size: 9px;
+                            table-layout: fixed;
                         }
                         th, td { 
                             border: 1px solid #000; 
-                            padding: 6px; 
+                            padding: 4px; 
                             text-align: center; 
                             vertical-align: top; 
+                            word-wrap: break-word;
                         }
                         th { 
                             background-color: #2c3e50; 
                             color: white; 
                             font-weight: bold;
+                            font-size: 8px;
                         }
                         .absensi-detail { 
-                            font-size: 9px; 
+                            font-size: 7px; 
                             text-align: left; 
-                            margin-top: 3px;
-                            line-height: 1.1;
+                            margin-top: 2px;
+                            line-height: 1.0;
                         }
                         .student-status { 
                             display: inline-block; 
-                            margin-right: 8px;
+                            margin-right: 5px;
                             white-space: nowrap;
                         }
                         .signature-table { 
                             width: 100%; 
-                            margin-top: 50px; 
+                            margin-top: 30px; 
                             border: none; 
                         }
                         .signature-table td { 
                             border: none; 
                             text-align: center; 
                             vertical-align: top; 
-                            padding: 20px; 
+                            padding: 15px; 
                         }
                         .signature-line { 
                             border-top: 1px solid #000; 
-                            margin-top: 60px; 
-                            padding-top: 5px; 
+                            margin-top: 40px; 
+                            padding-top: 3px; 
                         }
                         .note { 
                             font-style: italic; 
-                            margin-top: 30px;
-                            font-size: 10px;
+                            margin-top: 20px;
+                            font-size: 9px;
                         }
+                        /* Column widths yang diperbaiki */
+                        .col-no { width: 3%; }
+                        .col-tanggal { width: 8%; }
+                        .col-jam { width: 4%; }
+                        .col-jp { width: 4%; }
+                        .col-temu { width: 4%; }
+                        .col-tujuan { width: 15%; }
+                        .col-iktp { width: 12%; }
+                        .col-materi { width: 15%; }
+                        .col-capaian { width: 8%; }
+                        .col-absensi { width: 15%; }
+                        .col-keterangan { width: 12%; }
                     </style>
                 </head>
                 <body>
-                    <h1>JURNAL GURU 2025</h1>
-                    <h2>${settings.mapel} - ${settings.kelas}</h2>
-                    <h3>Fase: ${settings.fase} | Alokasi Waktu: ${settings.waktu}</h3>
-                    <p><strong>Guru:</strong> ${settings.teacherName} | <strong>Sekolah:</strong> ${settings.schoolName}</p>
+                    <div class="info-header">
+                        <h1>JURNAL GURU 2025</h1>
+                        <h2>${settings.mapel} - ${settings.kelas}</h2>
+                        <h3>Fase: ${settings.fase} | Alokasi Waktu: ${settings.waktu}</h3>
+                        <p style="text-align: center; font-size: 10px; margin: 5px 0;">
+                            <strong>Guru:</strong> ${settings.teacherName} | <strong>Sekolah:</strong> ${settings.schoolName}
+                        </p>
+                    </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Hari/Tgl</th>
-                                <th>Jam Ke</th>
-                                <th>JP</th>
-                                <th>Temu Ke-</th>
-                                <th>Tujuan Pembelajaran</th>
-                                <th>Materi Pembelajaran</th>
-                                <th>Capaian KKTP</th>
-                                <th>Absensi (S/I/A)</th>
-                                <th>Keterangan</th>
+                                <th class="col-no">No</th>
+                                <th class="col-tanggal">Hari/Tgl</th>
+                                <th class="col-jam">Jam Ke</th>
+                                <th class="col-jp">JP</th>
+                                <th class="col-temu">Temu Ke-</th>
+                                <th class="col-tujuan">Tujuan Pembelajaran</th>
+                                <th class="col-iktp">IKTP</th>
+                                <th class="col-materi">Materi Pembelajaran</th>
+                                <th class="col-capaian">Capaian KKTP</th>
+                                <th class="col-absensi">Absensi (S/I/A)</th>
+                                <th class="col-keterangan">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1321,21 +1355,22 @@
 
                 content += `
                     <tr>
-                        <td>${index + 1}</td>
-                        <td>${formatDate(item.hariTgl)}</td>
-                        <td>${item.jamKe}</td>
-                        <td>${item.jp}</td>
-                        <td>${item.temuKe}</td>
-                        <td>${item.tujuanPembelajaran}</td>
-                        <td>${item.materiPembelajaran}</td>
-                        <td>${item.capaianKKTP}</td>
-                        <td>
+                        <td class="col-no">${index + 1}</td>
+                        <td class="col-tanggal">${formatDate(item.hariTgl)}</td>
+                        <td class="col-jam">${item.jamKe}</td>
+                        <td class="col-jp">${item.jp}</td>
+                        <td class="col-temu">${item.temuKe}</td>
+                        <td class="col-tujuan">${item.tujuanPembelajaran}</td>
+                        <td class="col-iktp">${item.iktp}</td>
+                        <td class="col-materi">${item.materiPembelajaran}</td>
+                        <td class="col-capaian">${item.capaianKKTP}</td>
+                        <td class="col-absensi">
                             <strong>S:${item.absensiSummary?.S || 0} I:${item.absensiSummary?.I || 0} A:${item.absensiSummary?.A || 0}</strong>
                             <div class="absensi-detail">
                                 ${absensiDetail}
                             </div>
                         </td>
-                        <td>${item.keterangan || '-'}</td>
+                        <td class="col-keterangan">${item.keterangan || '-'}</td>
                     </tr>
                 `;
             });
@@ -1347,24 +1382,24 @@
                     <table class="signature-table">
                         <tr>
                             <td width="45%">
-                                <p>Mengetahui,</p>
-                                <p>Kepala Sekolah</p>
+                                <p style="margin: 0; font-size: 10px;">Mengetahui,</p>
+                                <p style="margin: 0; font-size: 10px;">Kepala Sekolah</p>
                                 <div class="signature-line"></div>
-                                <p><strong>${settings.kepalaName || '[Nama Kepala Sekolah]'}</strong></p>
-                                <p>NIP: ${settings.kepalaNIP || '-'}</p>
+                                <p style="margin: 5px 0 0 0; font-size: 10px;"><strong>${settings.kepalaName || '[Nama Kepala Sekolah]'}</strong></p>
+                                <p style="margin: 0; font-size: 9px;">NIP: ${settings.kepalaNIP || '-'}</p>
                             </td>
                             <td width="10%"></td>
                             <td width="45%">
-                                <p>Guru Mata Pelajaran,</p>
+                                <p style="margin: 0; font-size: 10px;">Guru Mata Pelajaran,</p>
                                 <div class="signature-line"></div>
-                                <p><strong>${settings.teacherName}</strong></p>
-                                <p>NIP: ${settings.teacherNIP || '-'}</p>
+                                <p style="margin: 5px 0 0 0; font-size: 10px;"><strong>${settings.teacherName}</strong></p>
+                                <p style="margin: 0; font-size: 9px;">NIP: ${settings.teacherNIP || '-'}</p>
                             </td>
                         </tr>
                     </table>
                     
                     <div class="note">
-                        <p><strong>Catatan:</strong> ${settings.catatan}</p>
+                        <p style="margin: 0; font-size: 9px;"><strong>Catatan:</strong> ${settings.catatan}</p>
                     </div>
                 </body>
                 </html>
@@ -1374,13 +1409,12 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'jurnal_guru_2025_landscape.doc';
+            a.download = 'jurnal_guru_2025.doc';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
-
         // Export ke JSON
         function exportToJSON() {
             const allData = {
